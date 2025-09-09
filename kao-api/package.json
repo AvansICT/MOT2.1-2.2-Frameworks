@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "koa": "^3.0.0",
+    "koa-bodyparser": "^4.4.1",
+    "koa-router": "^13.0.1"
+  },
+  "name": "kao-api",
+  "version": "1.0.0",
+  "main": "my-koa-app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx ts-node server.ts",
+    "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./server.ts"
+  },
+  
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/koa-router": "^7.4.8",
+     "@types/koa-bodyparser": "^4.3.12",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
