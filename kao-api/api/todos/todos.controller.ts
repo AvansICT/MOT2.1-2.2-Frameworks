@@ -12,29 +12,30 @@ class TodosController {
         console.log(this.todoService);
     }
    GetAllTodos = async(ctx : Context) : Promise<void> => {
-        ctx.body = this.todoService.getAll() ;
+        ctx.body = await this.todoService.getAll();
    }
-
-    
+   
    PostTodo = async (ctx: Context) :  Promise<void> => {
         let bodyMessage =  ctx.request.body as todosWithId;
-        const createdTodo = this.todoService.addTodo(bodyMessage);
+        const createdTodo = await this.todoService.addTodo(bodyMessage);
         ctx.body = {created:createdTodo };
     }
 
     GetTodobyId = async (ctx : Context) : Promise<void> => {
-        let foundTodo = this.todoService.getTodoById(ctx.params.id);
-        ctx.body = this.todoService.todosList ;
+        let foundTodo = await this.todoService.getTodoById(ctx.params.id);
+        ctx.body = foundTodo;
     }
 
 
     UpdateTodo = async (ctx : Context) : Promise<void> => {
         let bodyMessage =  ctx.request.body as todosWithId;
-        this.todoService.updateTodo(bodyMessage);
+        const updatedToDo = await this.todoService.updateTodo(bodyMessage);
+        ctx.body = {updated: updatedToDo};
     }
 
     DeleteTodo = async  (ctx: Context) : Promise<void> => {
-        this.todoService.deleteTodo(ctx.params.id);
+        const deletedToDo = await this.todoService.deleteTodo(ctx.params.id);
+        ctx.body = {deleted: deletedToDo};
     }
 }
 

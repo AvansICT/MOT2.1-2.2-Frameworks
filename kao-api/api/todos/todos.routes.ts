@@ -9,10 +9,10 @@ todosRouter.get('/todos', todosController.GetAllTodos);
 
 todosRouter.post('/todos', todosController.PostTodo);
 
-todosRouter.get("/todos/:id", findTodoById, todosController.GetTodobyId);
+todosRouter.get("/todos/:id", todosController.GetTodobyId);
 
-todosRouter.put("/todos/:id", findTodoById, todosController.UpdateTodo );
+todosRouter.put("/todos/:id", todosController.UpdateTodo );
 
-todosRouter.delete("/todos/:id", findTodoById, todosController.DeleteTodo)
+todosRouter.delete("/todos/:id", todosController.DeleteTodo)
 
 export default todosRouter
