@@ -7,10 +7,19 @@ type IDts = string | number;
 type start_date = string | Date;
 // nu kan ik overal in mijn code ID gebruiken in plaats van number
 
+type levels2 = "NLQF4" | "NLQF5";
+
 enum levels{
-    NLQF4 = "NLQF4",
-    NLQF5 = "NLQF5",
+    NLQF4 ,
+    NLQF5,
 }
+
+if(levels.NLQF4){
+    
+}
+
+let chillenNogwat: levels2 = "NLQF4";
+let moneymethod = levels.NLQF4;
 
 enum Locations {
     Breda,

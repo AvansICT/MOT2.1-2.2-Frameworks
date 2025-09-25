@@ -42,7 +42,7 @@ const GetStudyCreditsTS = (id: number | string  ): number => {
 
     let idToSearch: IDts = id;
 
-    if (typeof idToSearch === "string") {
+    if (typeof idToSearch === "number") {
         idToSearch = parseInt(idToSearch);
     }
 
