@@ -1,39 +1,40 @@
-import { todosWithId } from "../utils/interfaces/todos";
+import Todo from "../domain/todo";
+import ITodoRepository from "../domainServices/ITodoRepository";
+import TodoResult from "../domain/todoResult";
 
+class TodoLocalDBRepository implements ITodoRepository {
 
-class TodoService {
-
-    todosList : todosWithId[];
+    todosList : Todo[];
 
     constructor(){
         this.todosList = [
-            { id: 1, title: 'Sample Todo', completed: false }
+            new Todo('Sample Todo', TodoResult.Incomplete, 1) //
         ]
     };
 
-    getAll = (): todosWithId[] => {
+    getAll = (): Todo[] => {
         return this.todosList;
     }
 
     getTodoIndexById = (id : number | string) : number =>{
         let givenId : number  = Number(id);
-        const index = this.todosList.findIndex((body : todosWithId) => {return body.id === givenId as number});
+        const index = this.todosList.findIndex((body : Todo) => {return body.id === givenId as number});
         return index;
     }
 
-    getTodoById = ( id: number | string) : todosWithId | null => {
+    getTodoById = ( id: number | string) : Todo | null => {
         const index = this.getTodoIndexById(id);
         if(index < 0 ) return null;
 
         return this.todosList[index];
     }
 
-    addTodo = (todo : todosWithId) : todosWithId => {
+    addTodo = (todo : Todo) : Todo => {
         this.todosList.push(todo);
         return this.todosList[this.todosList.length-1];
     }
     
-    updateTodo = (todo: todosWithId) : void =>  {
+    updateTodo = (todo: Todo) : void =>  {
         const index = this.getTodoIndexById(todo.id);
         this.todosList[index] = todo;
     }   
@@ -44,4 +45,4 @@ class TodoService {
     }
 }
 
-export default TodoService;
+export default TodoLocalDBRepository;

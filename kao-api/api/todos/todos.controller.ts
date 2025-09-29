@@ -1,40 +1,42 @@
 import Koa from 'koa';
-import { todosWithId } from '../../utils/interfaces/todos';
+import Todo from '../../../domain/todo';
+import Title from '../../../domain/title';
 import {Context} from 'koa';
-import TodoService from '../../services/todos.service';
-
+import TodoService from '../../services/todo.services';
+import ITodoService from '../../../domainServices/ITodoService';
+import TodoResult from '../../../domain/todoResult';
 
 class TodosController {
-    todoService : TodoService;
+    todoService : ITodoService = new TodoService();
     
     constructor(){
         this.todoService= new TodoService();
-        console.log(this.todoService);
+
     }
    GetAllTodos = async(ctx : Context) : Promise<void> => {
-        ctx.body = this.todoService.getAll() ;
+        ctx.body = this.todoService.GetAll() ;
    }
-
     
    PostTodo = async (ctx: Context) :  Promise<void> => {
-        let bodyMessage =  ctx.request.body as todosWithId;
-        const createdTodo = this.todoService.addTodo(bodyMessage);
+        let bodyMessage =  ctx.request.body as Title;
+        const newTodo: Todo = new Todo(bodyMessage.title, TodoResult.Incomplete, Date.now());
+        const createdTodo = this.todoService.Create(newTodo);
         ctx.body = {created:createdTodo };
     }
 
     GetTodobyId = async (ctx : Context) : Promise<void> => {
-        let foundTodo = this.todoService.getTodoById(ctx.params.id);
-        ctx.body = this.todoService.todosList ;
+        let foundTodo = this.todoService.GetById(ctx.params.id);
+        ctx.body = foundTodo ;
     }
 
 
     UpdateTodo = async (ctx : Context) : Promise<void> => {
-        let bodyMessage =  ctx.request.body as todosWithId;
-        this.todoService.updateTodo(bodyMessage);
+        let bodyMessage =  ctx.request.body as Todo;
+        this.todoService.Update(bodyMessage);
     }
 
     DeleteTodo = async  (ctx: Context) : Promise<void> => {
-        this.todoService.deleteTodo(ctx.params.id);
+        this.todoService.Delete(ctx.params.id);
     }
 }
 

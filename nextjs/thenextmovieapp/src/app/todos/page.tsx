@@ -18,36 +18,29 @@ export default function TodosPage() {
   // In a real Next.js app, you might fetch from your API routes
   useEffect(() => {
     // Simulate API call - replace with actual fetch to /api/todos
-    const fetchTodos = async () => {
-      try {
-        const getTodos = await fetch('/todos/api');
-       
-        const sampleTodosjson = await getTodos.json();
-        const todoData = sampleTodosjson.data;
-
-        setTodos(todoData);
-      } catch (error) {
-        console.error('Failed to fetch todos:', error);
-      } finally {
-        setIsLoading(false);
-      }
+    const fetchTodos =  () => {
+      
+        fetch('api/todos').then(res => res.json() ).then(data => setTodos(data)).finally(() => setIsLoading(false));      
     };
 
     fetchTodos();
   }, []);
 
   const addTodo = async () => {
-    if (newTodo.trim()) {
-      const todo: Todo = {
-        id: Date.now(),
-        title: newTodo.trim(),
-        completed: false,
-      };
-      
+
+        await fetch('api/todos', {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ title: newTodo.trim() }),
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          setTodos([...todos, data.created]);
+          setNewTodo('');
+        })
+        .catch(err => console.error("Failed to add todo", err));
       // In production, you'd POST to /api/todos
-      setTodos([...todos, todo]);
-      setNewTodo('');
-    }
   };
 
   const toggleTodo = async (id: number | string) => {
@@ -119,7 +112,6 @@ export default function TodosPage() {
               type="text"
               value={newTodo}
               onChange={(e) => setNewTodo(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && addTodo()}
               placeholder="Add a new todo..."
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />

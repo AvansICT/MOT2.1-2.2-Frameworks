@@ -1,13 +1,12 @@
 import {Context, Next} from 'koa';
-import ToDoService from '../services/todos.service';
-import TodoService from '../services/todos.service';
+import TodoService from '../services/todo.services';
 
-const todoService : ToDoService = new TodoService();
+const todoService : TodoService = new TodoService();
 
 async function findTodoById(ctx: Context, next: Next) {
   if(Number.isInteger(ctx.params.id)){
   const id = Number.parseInt(ctx.params.id);
-  const todo = todoService.getTodoById(id);
+  const todo = todoService.GetById(id);
   
   if(todo )
     {
