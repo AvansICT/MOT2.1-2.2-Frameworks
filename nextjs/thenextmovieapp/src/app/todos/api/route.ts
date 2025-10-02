@@ -17,14 +17,6 @@ let todos: Todo[] = [
 // GET /api/todos - Get all todos
 export async function GET() {
   try {
-    // Option 1: Return local data
-    // return Response.json({
-    //   success: true,
-    //   data: todos,
-    //   count: todos.length
-    // });
-
-    // Option 2: Proxy to your kao-api backend (uncomment to use)
     
     const response = await fetch('http://localhost:3001/todos', {
       method: 'GET',
