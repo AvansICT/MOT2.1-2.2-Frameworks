@@ -13,7 +13,7 @@ const router = new Router();
 app.use(responseTime);
 app.use(BodyParser());
 
-const MONGO_URI = process.env.MONGO_URI || "<URI HERE>";
+const MONGO_URI = process.env.MONGO_URI || "<REPLACE THIS WITH YOUR CONNECTIONSTRING>";
 const PORT = 3001;
 
 mongoose

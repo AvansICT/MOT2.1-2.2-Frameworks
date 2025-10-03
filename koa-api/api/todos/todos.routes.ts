@@ -1,5 +1,5 @@
 import Router from 'koa-router';
-import findTodoById from '../../middleware/findTodoById';
+import findTodoById from '../../middleware/findTodoById.ts';
 import TodosController from './todos.controller.ts';
 
 const todosRouter = new Router();
